@@ -1,7 +1,7 @@
 phases:
 - phase: Windows
   condition: eq(variables['VSCODE_BUILD_WIN32'], 'true')
-  queue: Hosted VS2017
+  queue: Perf Pool - Windows
   variables:
     VSCODE_ARCH: x64
   steps:
@@ -9,7 +9,7 @@ phases:
 
 - phase: Windows32
   condition: eq(variables['VSCODE_BUILD_WIN32_32BIT'], 'true')
-  queue: Hosted VS2017
+  queue: Perf Pool - Windows
   variables:
     VSCODE_ARCH: ia32
   steps:
