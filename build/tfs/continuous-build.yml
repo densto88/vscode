@@ -63,13 +63,6 @@ phases:
       exec { yarn smoketest --screenshots "$(Build.ArtifactStagingDirectory)\artifacts" --log "$(Build.ArtifactStagingDirectory)\artifacts\smoketest.log" }
     displayName: Run Smoke Tests
     continueOnError: true
-  - task: PublishBuildArtifacts@1
-    displayName: Publish Smoketest Artifacts
-    inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)/artifacts'
-      ArtifactName: build-artifacts-win32
-      publishLocation: Container
-    condition: eq(variables['System.PullRequest.IsFork'], 'False')
   - task: PublishTestResults@2
     displayName: Publish Tests Results
     inputs:
@@ -85,8 +78,6 @@ phases:
     displayName: 'Gather PerfInsights Logs'
     timeoutInMinutes: 5
   - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: LogManLogManYay'
     inputs:
-      PathtoPublish: '$(Build.SourcesDirectory)\tests\TestResults'
-      ArtifactName: 'Windows $(_command) $(_args)'
-      publishLocation: Container
-    continueOnError: true
+      ArtifactName: LogManLogManYayYay
