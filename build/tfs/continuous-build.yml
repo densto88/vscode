@@ -3,10 +3,10 @@ phases:
   queue: Perf Pool - Windows
   steps:
   - task: ExtractFiles@1
-      displayName: 'Extract files'
-      inputs:
-        archiveFilePatterns: PerfInsights.zip
-        destinationFolder: 'D:\PerfInsights'
+    displayName: 'Extract files'
+    inputs:
+      archiveFilePatterns: PerfInsights.zip
+      destinationFolder: 'D:\PerfInsights'
   - powershell: 'Start-Process C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -ArgumentList "-ExecutionPolicy UnRestricted -NoProfile -Command `"D:\\PerfInsights\\PerfInsights.ps1 -NoGui -Scenario vmslow -TracingDuration 1800 -AcceptDisclaimerAndShareDiagnostics`""' 
     errorActionPreference: continue
     workingDirectory: 'd:\PerfInsights'
