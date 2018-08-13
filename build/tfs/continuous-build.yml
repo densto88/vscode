@@ -29,7 +29,7 @@ phases:
     displayName: Download Electron
   - powershell: |
       . build/tfs/win32/exec.ps1
-      $ErrorActionPreference = "Stop"
+      $ErrorActionPreference = "Continue"
       exec { yarn gulp hygiene }
     displayName: Run Hygiene Checks
   - powershell: |
