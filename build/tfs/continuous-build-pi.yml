@@ -2,6 +2,15 @@ phases:
 - phase: Windows
   queue: Perf Pool - Windows
   steps:
+  - task: ExtractFiles@1
+    displayName: 'Extract files'
+    inputs:
+      archiveFilePatterns: PerfInsights.zip
+      destinationFolder: 'D:\PerfInsights'
+  - powershell: 'Start-Process C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -ArgumentList "-ExecutionPolicy UnRestricted -NoProfile -Command `"D:\\PerfInsights\\PerfInsights.ps1 -NoGui -Scenario vmslow -TracingDuration 600 -AcceptDisclaimerAndShareDiagnostics`""' 
+    errorActionPreference: continue
+    workingDirectory: 'd:\PerfInsights'
+    displayName: 'Start PerfInsights'
   - task: NodeTool@0
     inputs:
       versionSpec: "8.9.1"
@@ -55,4 +64,15 @@ phases:
       testResultsFiles: '*-results.xml'
       searchFolder: '$(Build.ArtifactStagingDirectory)/test-results'
     condition: succeededOrFailed()
-    
+  - powershell: |
+        $destinationFolder = "D:\a\1\a";
+        while (!(Test-Path "D:\log_collection")) { Start-Sleep 10 }
+        Start-Sleep 10
+        Get-ChildItem -Path D:\log_collection | ForEach-Object {$sourcePath = Join-Path D:\log_collection $_.Name; Copy-Item -Path $sourcePath -Destination $destinationFolder -Recurse}
+    errorActionPreference: continue
+    displayName: 'Gather PerfInsights Logs'
+    timeoutInMinutes: 5
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: LogManLogManYay'
+    inputs:
+      ArtifactName: LogManLogManYayYay
